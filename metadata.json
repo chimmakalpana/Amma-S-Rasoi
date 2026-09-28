@@ -1,0 +1,9 @@
+{
+  "name": "Amma's Rasoi - Homemade Food & Biryani in Hyderabad",
+  "description": "Freshly prepared homemade biryani, tiffins, and artisanal snacks in Hyderabad. Explore the menu and order instantly via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
+

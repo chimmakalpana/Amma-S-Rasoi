@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 
+    ============================================================================
+    AMMA'S RASOI - HOMEMADE FOOD & BIRYANI WEBSITE (SINGLE-FILE HTML)
+    ============================================================================
+    Welcome! This entire website is built inside this single index.html file with
+    pure HTML, inline CSS, and vanilla JavaScript. No React, no Vite, no TypeScript,
+    and no build tools are required. You can double-click this file to open it in
+    any browser!
+
+    BEGINNER QUICK-CUSTOMIZATION:
+    - Jump to the JavaScript section at the bottom to change your Business Name,
+      City, Phone, WhatsApp Number, and Menu Items in the CONFIG object!
+    ============================================================================
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amma's Rasoi - Homemade Food & Biryani in Hyderabad</title>
+  <meta name="description" content="Freshly prepared homemade biryani, tiffins, and artisanal snacks in Hyderabad. Explore the menu and order instantly via WhatsApp.">
+
+  <!-- Google Fonts: Playfair Display for headings & Plus Jakarta Sans for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & RESET
+       Warm color palette: Warm orange (#ea580c), Cream (#FAF7F2), Dark brown (#291A13)
+       ========================================================================== */
+    :root {
+      --bg-cream: #FAF7F2;
+      --bg-warm-card: #FFFFFF;
+      --bg-cream-alt: #F5EFE4;
+      --bg-cream-card: #F9F4EB;
+      --text-dark: #291A13;
+      --text-muted: #5A493E;
+      --text-light: #7B6A5F;
+      --accent-orange: #EA580C;
+      --accent-orange-hover: #C2410C;
+      --accent-amber: #D97706;
+      --border-warm: #E8DFC8;
+      --border-warm-dark: #DECDB3;
+      --whatsapp-green: #16A34A;
+      --whatsapp-green-hover: #15803D;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --shadow-sm: 0 2px 8px rgba(41, 26, 19, 0.05);
+      --shadow-md: 0 6px 18px rgba(41, 26, 19, 0.08);
+      --shadow-lg: 0 14px 32px rgba(41, 26, 19, 0.12);
+      --shadow-xl: 0 20px 40px rgba(41, 26, 19, 0.16);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: var(--font-display);
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==========================================================================
+       2. TOP NOTIFICATION BAR
+       ========================================================================== */
+    .top-bar {
+      background-color: #24160E;
+      color: #F3ECE1;
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(234, 88, 12, 0.2);
+    }
+
+    .top-bar span.highlight {
+      color: #FDBA74;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       3. STICKY NAVIGATION BAR
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-warm);
+      height: 76px;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--accent-orange), #C2410C);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      font-size: 22px;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+    }
+
+    .brand-text h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-orange);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-orange);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .cart-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-cream-alt);
+      border: 1px solid var(--border-warm-dark);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: all 0.2s ease;
+    }
+
+    .cart-btn:hover {
+      background: #E8DFC8;
+      transform: translateY(-1px);
+    }
+
+    .cart-badge {
+      background: var(--accent-orange);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-left: 2px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .whatsapp-header-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--whatsapp-green);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .whatsapp-header-btn:hover {
+      background: var(--whatsapp-green-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35);
+    }
+
+    .hamburger-btn {
+      display: none;
+      font-size: 26px;
+      color: var(--text-dark);
+      padding: 4px;
+    }
+
+    /* Mobile Nav Dropdown */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 76px;
+      left: 0;
+      right: 0;
+      background: var(--bg-cream);
+      border-bottom: 1px solid var(--border-warm);
+      box-shadow: var(--shadow-lg);
+      padding: 20px 24px;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    /* ==========================================================================
+       4. HERO SECTION
+       ========================================================================== */
+    .hero {
+      padding: 60px 0 90px;
+      background: linear-gradient(180deg, var(--bg-cream) 0%, #F5EDE0 100%);
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-tagline-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-orange);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+    }
+
+    .hero-title .highlight {
+      color: var(--accent-orange);
+      font-style: italic;
+    }
+
+    .hero-description {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      max-width: 580px;
+      line-height: 1.6;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 44px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent-orange);
+      color: #fff;
+      padding: 15px 32px;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(234, 88, 12, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(234, 88, 12, 0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-cream-alt);
+      border: 1px solid var(--border-warm-dark);
+      color: var(--text-dark);
+      padding: 15px 28px;
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #E8DFC8;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border-warm);
+    }
+
+    .hero-stat-item .num {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent-orange);
+      line-height: 1;
+    }
+
+    .hero-stat-item .label {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-img-box {
+      width: 100%;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 6px solid #FFFFFF;
+      box-shadow: var(--shadow-xl);
+      aspect-ratio: 4 / 3;
+      background: #EFE8DC;
+    }
+
+    .hero-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .hero-img-box:hover img {
+      transform: scale(1.04);
+    }
+
+    .hero-floating-card {
+      position: absolute;
+      bottom: -20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-floating-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent-orange);
+    }
+
+    .hero-floating-card p {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .hero-floating-card .price {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    /* ==========================================================================
+       5. SECTION TITLES & HEADINGS
+       ========================================================================== */
+    .section {
+      padding: 90px 0;
+    }
+
+    .section.bg-alt {
+      background-color: var(--bg-cream-alt);
+      border-top: 1px solid var(--border-warm);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 50px;
+    }
+
+    .section-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-orange);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       6. MENU SECTION (8 ITEMS AS CARDS)
+       ========================================================================== */
+    .menu-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .filter-btn {
+      padding: 9px 20px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--bg-cream-alt);
+      color: var(--text-muted);
+      border: 1px solid var(--border-warm);
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      background: #E8DFC8;
+      color: var(--text-dark);
+    }
+
+    .filter-btn.active {
+      background: var(--text-dark);
+      color: #fff;
+      border-color: var(--text-dark);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .menu-card {
+      background: var(--bg-warm-card);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-warm);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--border-warm-dark);
+    }
+
+    .menu-img-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: #EFE8DC;
+      overflow: hidden;
+    }
+
+    .menu-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .menu-card:hover .menu-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .dietary-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.94);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .dietary-badge.veg span {
+      color: #15803D;
+    }
+    .dietary-badge.veg::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #15803D;
+    }
+
+    .dietary-badge.non-veg span {
+      color: #B91C1C;
+    }
+    .dietary-badge.non-veg::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #B91C1C;
+    }
+
+    .special-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent-orange);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .menu-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .menu-cat {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-amber);
+      margin-bottom: 6px;
+    }
+
+    .menu-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .menu-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .menu-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #F2ECE0;
+    }
+
+    .menu-price {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .add-to-cart-btn {
+      background: var(--accent-orange);
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.2);
+    }
+
+    .add-to-cart-btn:hover {
+      background: var(--accent-orange-hover);
+      transform: scale(1.03);
+    }
+
+    .qty-stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-cream-alt);
+      border: 1px solid var(--border-warm-dark);
+      padding: 4px;
+      border-radius: var(--radius-md);
+    }
+
+    .qty-stepper button {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #FFFFFF;
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.15s ease;
+    }
+
+    .qty-stepper button.btn-plus {
+      background: var(--accent-orange);
+      color: #fff;
+    }
+
+    .qty-stepper .qty-val {
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       7. ABOUT US SECTION
+       ========================================================================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-story {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .about-story p {
+      margin-bottom: 16px;
+    }
+
+    .about-quote {
+      background: #FFFFFF;
+      border-left: 4px solid var(--accent-orange);
+      padding: 20px 24px;
+      border-radius: var(--radius-md);
+      margin-top: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .about-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .about-quote span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-amber);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .about-card {
+      background: #FFFFFF;
+      padding: 36px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-warm);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-card h3 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .commitment-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .commitment-item {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .commitment-item .check {
+      width: 24px;
+      height: 24px;
+      background: #DCFCE7;
+      color: #15803D;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .commitment-item strong {
+      color: var(--text-dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ==========================================================================
+       8. WHY CHOOSE US (3 ICONS)
+       ========================================================================== */
+    .why-us-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .why-card {
+      background: #FFFFFF;
+      padding: 36px 30px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-warm);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .why-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--accent-orange);
+    }
+
+    .why-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--bg-cream-alt);
+      color: var(--accent-orange);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .why-card:hover .why-icon {
+      background: var(--accent-orange);
+      color: #fff;
+    }
+
+    .why-card .kicker {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-amber);
+      margin-bottom: 6px;
+    }
+
+    .why-card h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .why-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       9. CUSTOMER REVIEWS (3 TESTIMONIALS)
+       ========================================================================== */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .review-card {
+      background: #FFFFFF;
+      padding: 32px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-warm);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stars {
+      color: #F59E0B;
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+
+    .review-text {
+      font-size: 15px;
+      color: var(--text-dark);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .reviewer-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-warm);
+    }
+
+    .reviewer-name {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .reviewer-loc {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .verified-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #15803D;
+      background: #DCFCE7;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    /* ==========================================================================
+       10. CONTACT & OPENING HOURS
+       ========================================================================== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 36px;
+    }
+
+    .contact-info-card {
+      background: #FFFFFF;
+      padding: 36px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-warm);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-info-card h3 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .contact-item-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--bg-cream-alt);
+      color: var(--accent-orange);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .contact-item-text .val {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .contact-item-text .sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .whatsapp-big-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--whatsapp-green);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: var(--radius-lg);
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .whatsapp-big-btn:hover {
+      background: var(--whatsapp-green-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(22, 163, 74, 0.35);
+    }
+
+    .hours-card {
+      background: #FFFFFF;
+      padding: 36px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-warm);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hours-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .hours-header h3 {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .live-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #DCFCE7;
+      color: #15803D;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #16A34A;
+      box-shadow: 0 0 8px #16A34A;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .hours-table th, .hours-table td {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .hours-table th {
+      background: var(--bg-cream);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-light);
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .hours-table td {
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .hours-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .hours-table .status-tag {
+      text-align: right;
+      font-weight: 700;
+      color: #15803D;
+    }
+
+    .hours-note {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      color: #92400E;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       11. FOOTER
+       ========================================================================== */
+    .footer {
+      background: #20130B;
+      color: #D8CCC0;
+      padding: 70px 0 30px;
+      border-top: 1px solid rgba(234, 88, 12, 0.2);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1.25fr;
+      gap: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-brand h2 {
+      color: #FFFFFF;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: #A89A8E;
+      line-height: 1.6;
+      max-width: 380px;
+      margin-bottom: 24px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #F3ECE1;
+      font-size: 18px;
+      transition: all 0.2s ease;
+    }
+
+    .social-link:hover {
+      background: var(--accent-orange);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .footer-col h4 {
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .footer-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-nav a {
+      font-size: 14px;
+      color: #A89A8E;
+      transition: color 0.2s ease;
+    }
+
+    .footer-nav a:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-bottom {
+      padding-top: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #7B6A5F;
+    }
+
+    /* ==========================================================================
+       12. CART MODAL / DRAWER
+       ========================================================================== */
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      justify-content: flex-end;
+    }
+
+    .cart-overlay.open {
+      display: flex;
+    }
+
+    .cart-drawer {
+      background: var(--bg-cream);
+      width: 100%;
+      max-width: 440px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-xl);
+      animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    .cart-header {
+      padding: 20px 24px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-warm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-header h3 {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .cart-close-btn {
+      font-size: 24px;
+      color: var(--text-light);
+      padding: 4px;
+    }
+
+    .cart-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-light);
+    }
+
+    .cart-empty .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .cart-empty h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .cart-item-row {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-warm);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .cart-item-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #EFE8DC;
+    }
+
+    .cart-item-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-item-title {
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cart-item-price {
+      font-size: 13px;
+      color: var(--accent-orange);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .cart-form-group {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-warm);
+    }
+
+    .cart-form-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-warm-dark);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 13px;
+      margin-bottom: 10px;
+      background: #FFFFFF;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-orange);
+    }
+
+    .cart-footer {
+      background: #FFFFFF;
+      padding: 20px 24px;
+      border-top: 1px solid var(--border-warm);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .summary-row.total {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-dark);
+      padding-top: 10px;
+      margin-top: 10px;
+      border-top: 1px solid var(--border-warm);
+    }
+
+    .summary-row.total span:last-child {
+      color: var(--accent-orange);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      margin-top: 16px;
+      background: var(--whatsapp-green);
+      color: #fff;
+      padding: 15px;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(22, 163, 74, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .checkout-btn:hover {
+      background: var(--whatsapp-green-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Floating mobile cart bar */
+    .mobile-cart-bar {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: var(--text-dark);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: var(--radius-lg);
+      z-index: 90;
+      box-shadow: var(--shadow-xl);
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--text-dark);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: var(--shadow-xl);
+      z-index: 300;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       13. RESPONSIVE MEDIA QUERIES (MOBILE / TABLET)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .why-us-grid, .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .whatsapp-header-btn {
+        display: none;
+      }
+      .hamburger-btn {
+        display: block;
+      }
+      .hero-title {
+        font-size: 38px;
+      }
+      .section-title {
+        font-size: 30px;
+      }
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .mobile-cart-bar.active {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP ANNOUNCEMENT BAR
+       ======================================================================== -->
+  <div class="top-bar">
+    🍲 Fresh Morning & Evening Batches Prepared Daily in <span class="highlight" id="top-city-text">Hyderabad</span> · Free delivery on orders above ₹499!
+  </div>
+
+  <!-- ========================================================================
+       STICKY NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <!-- Zone 1: Brand Wordmark -->
+      <a href="#" class="brand">
+        <div class="brand-icon">🍛</div>
+        <div class="brand-text">
+          <h1 id="brand-name-nav">Amma's Rasoi</h1>
+          <span id="brand-city-nav">Hyderabad · Kitchen</span>
+        </div>
+      </a>
+
+      <!-- Zone 2: Navigation Links -->
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#why-us">Why Choose Us</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact & Hours</a></li>
+        </ul>
+      </nav>
+
+      <!-- Zone 3: Actions -->
+      <div class="nav-actions">
+        <button class="cart-btn" id="open-cart-btn" aria-label="View Shopping Cart">
+          🛒 Cart <span class="cart-badge" id="nav-cart-count">0</span>
+        </button>
+        <a href="#contact" class="whatsapp-header-btn" id="header-whatsapp-link">
+          💬 WhatsApp Us
+        </a>
+        <button class="hamburger-btn" id="hamburger-toggle" aria-label="Toggle Navigation Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation Menu -->
+    <div class="mobile-menu" id="mobile-menu-drawer">
+      <a href="#menu" class="mobile-nav-link">Today's Menu</a>
+      <a href="#about" class="mobile-nav-link">Our Kitchen Story</a>
+      <a href="#why-us" class="mobile-nav-link">Why Choose Us</a>
+      <a href="#reviews" class="mobile-nav-link">Customer Reviews</a>
+      <a href="#contact" class="mobile-nav-link">Contact & Opening Hours</a>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       1. HERO SECTION
+       ======================================================================== -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-tagline-kicker">
+          <span>Homemade in <span id="hero-city-text">Hyderabad</span></span> · 
+          <span>Pure Desi Ghee</span> · 
+          <span>Zero Preservatives</span>
+        </div>
+        <h1 class="hero-title">
+          Warm, comforting flavours made just like <span class="highlight">Maa's kitchen</span>.
+        </h1>
+        <p class="hero-description" id="hero-desc-text">
+          Experience authentic Hyderabadi Dum Biryani, crisp breakfast tiffins, and artisanal snacks prepared with fresh hand-ground spices and pure unadulterated oils. Delivered steaming hot to your family table.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#menu" class="btn-primary">
+            Order Now ➔
+          </a>
+          <a href="#about" class="btn-secondary">
+            Read Our Story
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="num">100%</div>
+            <div class="label">Pure Desi Ghee & Oils</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="num">45 min</div>
+            <div class="label">Piping Hot Delivery</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="num">4.9 ★</div>
+            <div class="label">Over 2,500+ Reviews</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Large Food Image -->
+      <div class="hero-image-wrap">
+        <div class="hero-img-box">
+          <img 
+            id="hero-main-img"
+            src="images/hero.jpg" 
+            alt="Authentic homemade food spread with Hyderabadi biryani, curries and snacks"
+            onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1200&q=80';"
+          >
+        </div>
+        <div class="hero-floating-card">
+          <div>
+            <p>Today's Star Specialty</p>
+            <h4>Royal Hyderabadi Dum Biryani</h4>
+          </div>
+          <div class="price">₹299</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       2. MENU SECTION (8 ITEMS AS CARDS)
+       ======================================================================== -->
+  <section id="menu" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Fresh From The Clay Handi</div>
+        <h2 class="section-title">Our Homemade Kitchen Menu</h2>
+        <p class="section-desc">
+          Every dish is prepared fresh on order with hand-picked ingredients and traditional spices.
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="menu-filters" id="menu-filter-container">
+        <button class="filter-btn active" data-category="All">All</button>
+        <button class="filter-btn" data-category="Biryani & Mains">Biryani & Mains</button>
+        <button class="filter-btn" data-category="Tiffins">Tiffins</button>
+        <button class="filter-btn" data-category="Snacks & Breads">Snacks & Breads</button>
+        <button class="filter-btn" data-category="Desserts & Drinks">Desserts & Drinks</button>
+      </div>
+
+      <!-- 8 Menu Cards Grid -->
+      <div class="menu-grid" id="menu-items-grid">
+        <!-- Rendered dynamically by JavaScript below -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       3. ABOUT US SECTION
+       ======================================================================== -->
+  <section id="about" class="section bg-alt">
+    <div class="container about-grid">
+      <div>
+        <div class="section-kicker">Heritage & Care</div>
+        <h2 class="section-title">Born in a family kitchen with heirloom recipes.</h2>
+        <div class="about-story">
+          <p>
+            <strong id="about-business-name">Amma's Rasoi</strong> was founded on one simple belief: 
+            <strong>food made with pure love brings comfort, health, and joy to the soul</strong>.
+          </p>
+          <p>
+            Tired of restaurant takeaways loaded with synthetic colors, palm oil, and day-old frozen curries, we started cooking wholesome, home-style meals for friends and neighbours in <span class="city-name-placeholder">Hyderabad</span>.
+          </p>
+          <p>
+            Every single dawn begins at 5:00 AM with stone-grinding fresh masalas, soaking wholesome grains, and slow-simmering biryani in traditional clay handis. We never compromise on ingredients, hygiene, or authentic warmth.
+          </p>
+        </div>
+        <div class="about-quote">
+          <p>"If we wouldn't serve it to our own children at our kitchen table, it will never leave our kitchen for yours."</p>
+          <span>— Amma & Family, Founders</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="about-card">
+          <h3>Our Kitchen Commitments</h3>
+          <ul class="commitment-list">
+            <li class="commitment-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Zero Preservatives & Additives</strong>
+                No MSG, artificial food coloring, or commercial gravy thickeners.
+              </div>
+            </li>
+            <li class="commitment-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Cold-Pressed Oils & Desi Ghee</strong>
+                Cooked exclusively in pure cow ghee and traditional pressed oils.
+              </div>
+            </li>
+            <li class="commitment-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Artisanal Small-Batch Cooking</strong>
+                Cooked in small quantities so that each dish retains its rich flavours.
+              </div>
+            </li>
+            <li class="commitment-item">
+              <span class="check">✓</span>
+              <div>
+                <strong>Freshly Ground Spices Daily</strong>
+                Cardamom, cloves, and whole coriander roasted and ground every morning.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       4. WHY CHOOSE US SECTION (3 ICONS)
+       ======================================================================== -->
+  <section id="why-us" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">The Gold Standard</div>
+        <h2 class="section-title">Why Food Lovers Choose Us</h2>
+        <p class="section-desc">Experience the unmatched difference of genuine homemade cooking.</p>
+      </div>
+
+      <div class="why-us-grid">
+        <!-- Pillar 1: Fresh Ingredients -->
+        <div class="why-card">
+          <div class="why-icon">🌿</div>
+          <span class="kicker">Pure & Natural</span>
+          <h3>Fresh Ingredients</h3>
+          <p>We source fresh farm vegetables, tender meats, and whole spices directly from local markets every morning with zero chemical preservatives.</p>
+        </div>
+
+        <!-- Pillar 2: Fast Delivery -->
+        <div class="why-card">
+          <div class="why-icon">🚀</div>
+          <span class="kicker">Piping Hot</span>
+          <h3>Fast Delivery</h3>
+          <p>Packed straight from our hot stoves into sealed, thermal-insulated containers so your food arrives steaming hot in under 45 minutes.</p>
+        </div>
+
+        <!-- Pillar 3: Hygienic Kitchen -->
+        <div class="why-card">
+          <div class="why-icon">🛡️</div>
+          <span class="kicker">Domestic Safety</span>
+          <h3>100% Hygienic</h3>
+          <p>Prepared in a sanitized, sparkling-clean home kitchen following the strictest standards of domestic cleanliness and hygiene.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       5. CUSTOMER REVIEWS (3 TESTIMONIALS)
+       ======================================================================== -->
+  <section id="reviews" class="section bg-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Happy Diners</div>
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-desc">Real reviews from genuine food lovers in <span class="city-name-placeholder">Hyderabad</span>.</p>
+      </div>
+
+      <div class="reviews-grid" id="reviews-container">
+        <!-- Rendered dynamically by JavaScript below -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       6. CONTACT SECTION (PHONE, ADDRESS, HOURS & WHATSAPP)
+       ======================================================================== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-kicker">Get In Touch</div>
+        <h2 class="section-title">Order Direct or Visit Our Kitchen</h2>
+        <p class="section-desc">Have questions about today's menu or need custom party catering? We are here to help.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Information -->
+        <div class="contact-info-card">
+          <div>
+            <h3>Contact Information</h3>
+            <div class="contact-details">
+              <!-- Phone -->
+              <div class="contact-item">
+                <div class="contact-item-icon">📞</div>
+                <div class="contact-item-text">
+                  <label>Call Us Direct</label>
+                  <a href="tel:+919876543210" class="val" id="contact-phone-link">+91 98765 43210</a>
+                  <div class="sub">Open for call orders all day</div>
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div class="contact-item">
+                <div class="contact-item-icon">📍</div>
+                <div class="contact-item-text">
+                  <label>Kitchen & Pickup Address</label>
+                  <div class="val" id="contact-address-text">Plot 42, Heritage Enclave, Jubilee Hills Road No. 10</div>
+                  <div class="sub"><span class="city-name-placeholder">Hyderabad</span>, Telangana 500033</div>
+                </div>
+              </div>
+
+              <!-- Delivery Note -->
+              <div class="contact-item">
+                <div class="contact-item-icon">🛵</div>
+                <div class="contact-item-text">
+                  <label>Delivery Coverage</label>
+                  <div class="val">Across <span class="city-name-placeholder">Hyderabad</span></div>
+                  <div class="sub">Free delivery on orders over ₹499</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct WhatsApp Button -->
+          <div>
+            <a href="#" class="whatsapp-big-btn" id="direct-whatsapp-btn" target="_blank" rel="noopener noreferrer">
+              💬 Order Direct on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Opening Hours Table -->
+        <div class="hours-card">
+          <div class="hours-header">
+            <h3>Opening Hours</h3>
+            <div class="live-status">
+              <span class="live-dot"></span> Open Today
+            </div>
+          </div>
+
+          <table class="hours-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Kitchen Hours</th>
+                <th style="text-align: right;">Status</th>
+              </tr>
+            </thead>
+            <tbody id="hours-table-body">
+              <!-- Rendered dynamically by JavaScript below -->
+            </tbody>
+          </table>
+
+          <div class="hours-note">
+            🌟 <strong>Sunday Special:</strong> Breakfast tiffins (hot Dosas, Idlis, Vadas) begin at 8:30 AM! Fresh Dum Biryani handis open at 12:00 PM noon.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       7. FOOTER WITH SOCIAL MEDIA LINKS
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h2 id="footer-brand-name">Amma's Rasoi</h2>
+          <p>
+            Pure homemade flavours, traditional slow-cooked Hyderabadi dum biryani, and crispy breakfast tiffins prepared daily with pure love.
+          </p>
+          <!-- Social Media Links -->
+          <div class="social-links">
+            <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram">📸</a>
+            <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook">📘</a>
+            <a href="https://youtube.com" target="_blank" class="social-link" aria-label="YouTube">▶️</a>
+            <a href="https://twitter.com" target="_blank" class="social-link" aria-label="Twitter">🐦</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-nav">
+            <li><a href="#menu">Our Menu & Prices</a></li>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#why-us">Why Choose Us</a></li>
+            <li><a href="#reviews">Customer Testimonials</a></li>
+            <li><a href="#contact">Contact & Timings</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Kitchen Details</h4>
+          <p style="font-size: 14px; margin-bottom: 8px;" id="footer-address">
+            Plot 42, Heritage Enclave, Jubilee Hills Road No. 10, Hyderabad
+          </p>
+          <p style="font-size: 14px; margin-bottom: 8px;">
+            Phone: <a href="tel:+919876543210" style="color: #FDBA74;" id="footer-phone">+91 98765 43210</a>
+          </p>
+          <p style="font-size: 14px;">
+            WhatsApp: <a href="#" style="color: #4ADE80;" id="footer-whatsapp">+91 98765 43210</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © <span id="current-year">2026</span> <span id="footer-copy-name">Amma's Rasoi</span>. All rights reserved.
+        </div>
+        <div>
+          Handcrafted in <span class="city-name-placeholder">Hyderabad</span> · WhatsApp Ordering Enabled
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       FLOATING MOBILE CART BAR (Visible when items in cart on mobile)
+       ======================================================================== -->
+  <div class="mobile-cart-bar" id="mobile-cart-bar">
+    <div>
+      <div style="font-size: 11px; color: #FDBA74; text-transform: uppercase;">Your Order</div>
+      <div style="font-size: 16px; font-weight: 800;" id="mobile-cart-summary">0 items · ₹0</div>
+    </div>
+    <button id="mobile-cart-open-btn" style="background: var(--accent-orange); color: #fff; padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: 13px;">
+      View Cart ➔
+    </button>
+  </div>
+
+  <!-- ========================================================================
+       CART POPUP / DRAWER MODAL
+       ======================================================================== -->
+  <div class="cart-overlay" id="cart-overlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h3>Your Order (<span id="cart-header-count">0</span>)</h3>
+        <button class="cart-close-btn" id="cart-close-btn" aria-label="Close Cart">✕</button>
+      </div>
+
+      <div class="cart-body" id="cart-body">
+        <!-- Rendered dynamically by JavaScript below -->
+      </div>
+
+      <div class="cart-footer" id="cart-footer">
+        <div class="summary-row">
+          <span>Items Subtotal</span>
+          <span id="summary-subtotal">₹0</span>
+        </div>
+        <div class="summary-row">
+          <span>Kitchen Packaging</span>
+          <span id="summary-packaging">₹0</span>
+        </div>
+        <div class="summary-row">
+          <span>Delivery Fee</span>
+          <span id="summary-delivery">FREE</span>
+        </div>
+        <div class="summary-row total">
+          <span>Grand Total</span>
+          <span id="summary-grandtotal">₹0</span>
+        </div>
+
+        <button class="checkout-btn" id="whatsapp-checkout-btn">
+          💬 Order on WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast message notification -->
+  <div class="toast" id="toast-notification">Item added to cart!</div>
+
+  <!-- ========================================================================
+       BEGINNER JAVASCRIPT & CONFIGURATION
+       ======================================================================== -->
+  <script>
+    /* ========================================================================
+       1. EASY CONFIGURATION: EDIT YOUR BUSINESS DETAILS HERE
+       ======================================================================== */
+    const BUSINESS_CONFIG = {
+      // Business Name:
+      name: "Amma's Rasoi",
+
+      // Tagline:
+      tagline: "Authentic Homemade Flavours Crafted with Love & Pure Desi Ghee",
+
+      // City:
+      city: "Hyderabad",
+
+      // Phone Number (Display text):
+      phoneDisplay: "+91 98765 43210",
+
+      // Phone Number (Callable link without spaces):
+      phoneCallable: "+919876543210",
+
+      // WhatsApp Number (with country code, no + or spaces, e.g. 919876543210):
+      whatsappNumber: "919876543210",
+
+      // Address:
+      address: "Plot 42, Heritage Enclave, Jubilee Hills Road No. 10",
+
+      // Opening Hours:
+      openingHours: [
+        { day: "Monday – Thursday", time: "10:30 AM – 10:00 PM", status: "Open" },
+        { day: "Friday – Saturday", time: "10:00 AM – 11:00 PM", status: "Open" },
+        { day: "Sunday (Tiffins & Biryani)", time: "08:30 AM – 11:00 PM", status: "Open" }
+      ]
+    };
+
+    /* ========================================================================
+       2. MENU ITEMS DATA (8 DISHES)
+       ======================================================================== */
+    const MENU_ITEMS = [
+      {
+        id: "item-1",
+        name: "Royal Hyderabadi Dum Biryani",
+        category: "Biryani & Mains",
+        price: 299,
+        description: "Slow-cooked saffron basmati rice layered with aromatic tender spices, caramelized onions, and fresh mint in a sealed clay handi.",
+        image: "images/biryani.jpg",
+        fallback: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80",
+        dietary: "Non-Veg",
+        isSpecial: true
+      },
+      {
+        id: "item-2",
+        name: "Crispy Ghee Masala Dosa",
+        category: "Tiffins",
+        price: 119,
+        description: "Golden rice crepe roasted in pure Desi Ghee, stuffed with spiced potato masala, paired with fresh coconut & tomato chutneys.",
+        image: "images/dosa.jpg",
+        fallback: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=800&q=80",
+        dietary: "Veg",
+        isSpecial: true
+      },
+      {
+        id: "item-3",
+        name: "Shahi Paneer Butter Masala",
+        category: "Biryani & Mains",
+        price: 249,
+        description: "Velvety butter gravy with soft malai cottage cheese cubes, slow-simmered with cashews, fresh cream, and fenugreek leaves.",
+        image: "images/paneer.jpg",
+        fallback: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=800&q=80",
+        dietary: "Veg",
+        isSpecial: false
+      },
+      {
+        id: "item-4",
+        name: "Desi Ghee Gulab Jamun (3 Pcs)",
+        category: "Desserts & Drinks",
+        price: 99,
+        description: "Traditional soft khoya dumplings fried in pure cow ghee and soaked in warm cardamom and rose-water saffron syrup.",
+        image: "images/gulab-jamun.jpg",
+        fallback: "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=800&q=80",
+        dietary: "Veg",
+        isSpecial: true
+      },
+      {
+        id: "item-5",
+        name: "Crispy Punjabi Samosas (2 Pcs)",
+        category: "Snacks & Breads",
+        price: 69,
+        description: "Flaky artisanal pastry pockets stuffed with spiced potatoes, green peas, and whole coriander seeds. Served with sweet dates chutney.",
+        image: "images/samosa.jpg",
+        fallback: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+        dietary: "Veg",
+        isSpecial: false
+      },
+      {
+        id: "item-6",
+        name: "Steaming Idli & Medu Vada Combo",
+        category: "Tiffins",
+        price: 129,
+        description: "Two pillow-soft steamed rice idlis and one crispy golden medu vada, served piping hot with fresh drumstick sambar & chutneys.",
+        image: "images/idli-vada.jpg",
+        fallback: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+        dietary: "Veg",
+        isSpecial: false
+      },
+      {
+        id: "item-7",
+        name: "Alphonso Mango Kesar Lassi",
+        category: "Desserts & Drinks",
+        price: 89,
+        description: "Rich, chilled, thick yogurt churned with Ratnagiri Alphonso mango pulp, fragrant Kashmiri saffron, and crushed green pistachios.",
+        image: "images/mango-lassi.jpg",
+        fallback: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80",
+        dietary: "Veg",
+        isSpecial: false
+      },
+      {
+        id: "item-8",
+        name: "Tandoori Garlic Butter Naan (2 Pcs)",
+        category: "Snacks & Breads",
+        price: 79,
+        description: "Leavened flatbread freshly baked in a clay oven, slathered with melted garlic butter and sprinkled with fresh green coriander.",
+        image: "images/garlic-naan.jpg",
+        fallback: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80",
+        dietary: "Veg",
+        isSpecial: false
+      }
+    ];
+
+    /* ========================================================================
+       3. CUSTOMER TESTIMONIALS DATA (3 REVIEWS)
+       ======================================================================== */
+    const REVIEWS = [
+      {
+        name: "Priya Sharma",
+        location: "Banjara Hills, Hyderabad",
+        comment: "The Hyderabadi Dum Biryani reminds me of the festive cooking at my grandmother's home. The aroma of saffron, fried onions, and real ghee was unforgettable. Truly feels homemade!",
+        stars: 5,
+        tag: "Verified Customer"
+      },
+      {
+        name: "Rajesh Varma",
+        location: "Gachibowli, Hyderabad",
+        comment: "Finding healthy tiffins for early office mornings that don't cause acidity is hard. Amma's Idlis are cloud-soft and the sambar has that authentic home-cooked balance. Fantastic service!",
+        stars: 5,
+        tag: "Regular Weekend Order"
+      },
+      {
+        name: "Sneha Reddy",
+        location: "Madhapur, Hyderabad",
+        comment: "We ordered 15 portions for our family puja. Every guest praised the Paneer Butter Masala and the warm Gulab Jamuns melted in our mouths. Ordering via WhatsApp was seamless!",
+        stars: 5,
+        tag: "Family Gathering Catering"
+      }
+    ];
+
+    /* ========================================================================
+       4. SHOPPING CART STATE
+       ======================================================================== */
+    let cart = {}; // Format: { "item-1": { item: {...}, qty: 2 } }
+    let selectedCategory = "All";
+
+    /* ========================================================================
+       5. INITIALIZE PAGE WITH CONFIG DATA
+       ======================================================================== */
+    function initializePage() {
+      // Populate text elements with Business Config
+      document.getElementById('brand-name-nav').innerText = BUSINESS_CONFIG.name;
+      document.getElementById('brand-city-nav').innerText = BUSINESS_CONFIG.city + " · Kitchen";
+      document.getElementById('top-city-text').innerText = BUSINESS_CONFIG.city;
+      document.getElementById('hero-city-text').innerText = BUSINESS_CONFIG.city;
+      document.getElementById('about-business-name').innerText = BUSINESS_CONFIG.name;
+      document.getElementById('footer-brand-name').innerText = BUSINESS_CONFIG.name;
+      document.getElementById('footer-copy-name').innerText = BUSINESS_CONFIG.name;
+      document.getElementById('contact-phone-link').innerText = BUSINESS_CONFIG.phoneDisplay;
+      document.getElementById('contact-phone-link').href = "tel:" + BUSINESS_CONFIG.phoneCallable;
+      document.getElementById('footer-phone').innerText = BUSINESS_CONFIG.phoneDisplay;
+      document.getElementById('footer-phone').href = "tel:" + BUSINESS_CONFIG.phoneCallable;
+      document.getElementById('contact-address-text').innerText = BUSINESS_CONFIG.address;
+      document.getElementById('footer-address').innerText = BUSINESS_CONFIG.address + ", " + BUSINESS_CONFIG.city;
+      document.getElementById('current-year').innerText = new Date().getFullYear();
+
+      // Replace city placeholders
+      document.querySelectorAll('.city-name-placeholder').forEach(el => {
+        el.innerText = BUSINESS_CONFIG.city;
+      });
+
+      // Default WhatsApp links
+      const defaultMsg = encodeURIComponent("Hello " + BUSINESS_CONFIG.name + "! I would like to check today's fresh menu in " + BUSINESS_CONFIG.city + ".");
+      const waLink = "https://wa.me/" + BUSINESS_CONFIG.whatsappNumber + "?text=" + defaultMsg;
+      document.getElementById('header-whatsapp-link').href = waLink;
+      document.getElementById('direct-whatsapp-btn').href = waLink;
+      document.getElementById('footer-whatsapp').href = waLink;
+      document.getElementById('footer-whatsapp').innerText = "+" + BUSINESS_CONFIG.whatsappNumber;
+
+      // Render Opening Hours Table
+      const hoursTbody = document.getElementById('hours-table-body');
+      hoursTbody.innerHTML = BUSINESS_CONFIG.openingHours.map(schedule => `
+        <tr>
+          <td><strong>${schedule.day}</strong></td>
+          <td style="font-family: monospace;">${schedule.time}</td>
+          <td class="status-tag">${schedule.status}</td>
+        </tr>
+      `).join('');
+
+      // Render Reviews
+      const reviewsContainer = document.getElementById('reviews-container');
+      reviewsContainer.innerHTML = REVIEWS.map(r => `
+        <div class="review-card">
+          <div>
+            <div class="stars">${"★".repeat(r.stars)}</div>
+            <p class="review-text">"${r.comment}"</p>
+          </div>
+          <div class="reviewer-meta">
+            <div>
+              <div class="reviewer-name">${r.name}</div>
+              <div class="reviewer-loc">${r.location}</div>
+            </div>
+            <span class="verified-tag">${r.tag}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // Render Menu Items
+      renderMenu();
+    }
+
+    /* ========================================================================
+       6. RENDER MENU ITEMS
+       ======================================================================== */
+    function renderMenu() {
+      const grid = document.getElementById('menu-items-grid');
+      const filtered = selectedCategory === "All" 
+        ? MENU_ITEMS 
+        : MENU_ITEMS.filter(item => item.category === selectedCategory);
+
+      grid.innerHTML = filtered.map(item => {
+        const inCart = cart[item.id];
+        const qty = inCart ? inCart.qty : 0;
+
+        return `
+          <div class="menu-card">
+            <div class="menu-img-wrap">
+              <img 
+                src="${item.image}" 
+                alt="${item.name}"
+                onerror="this.onerror=null; this.src='${item.fallback}';"
+              >
+              <div class="dietary-badge ${item.dietary === 'Veg' ? 'veg' : 'non-veg'}">
+                <span>${item.dietary}</span>
+              </div>
+              ${item.isSpecial ? '<div class="special-badge">Chef Special</div>' : ''}
+            </div>
+            <div class="menu-content">
+              <span class="menu-cat">${item.category}</span>
+              <h3 class="menu-title">${item.name}</h3>
+              <p class="menu-desc">${item.description}</p>
+              <div class="menu-footer">
+                <span class="menu-price">₹${item.price}</span>
+                ${qty === 0 ? `
+                  <button class="add-to-cart-btn" onclick="addToCart('${item.id}')">
+                    + Add
+                  </button>
+                ` : `
+                  <div class="qty-stepper">
+                    <button onclick="changeQty('${item.id}', -1)" aria-label="Decrease quantity">−</button>
+                    <span class="qty-val">${qty}</span>
+                    <button class="btn-plus" onclick="changeQty('${item.id}', 1)" aria-label="Increase quantity">+</button>
+                  </div>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* ========================================================================
+       7. CART LOGIC (ADD, UPDATE, REMOVE, WHATSAPP ORDER)
+       ======================================================================== */
+    function addToCart(itemId) {
+      const item = MENU_ITEMS.find(i => i.id === itemId);
+      if (!item) return;
+
+      if (!cart[itemId]) {
+        cart[itemId] = { item, qty: 1 };
+      } else {
+        cart[itemId].qty += 1;
+      }
+
+      showToast("Added \"" + item.name + "\" to cart!");
+      updateCartUI();
+      renderMenu();
+    }
+
+    function changeQty(itemId, delta) {
+      if (!cart[itemId]) return;
+      cart[itemId].qty += delta;
+      if (cart[itemId].qty <= 0) {
+        delete cart[itemId];
+      }
+      updateCartUI();
+      renderMenu();
+    }
+
+    function updateCartUI() {
+      const totalCount = Object.values(cart).reduce((sum, entry) => sum + entry.qty, 0);
+      const subtotal = Object.values(cart).reduce((sum, entry) => sum + (entry.item.price * entry.qty), 0);
+      const packaging = totalCount > 0 ? 20 : 0;
+      const delivery = subtotal > 499 || totalCount === 0 ? 0 : 40;
+      const grandTotal = subtotal + packaging + delivery;
+
+      // Update counters in header and mobile bar
+      document.getElementById('nav-cart-count').innerText = totalCount;
+      document.getElementById('cart-header-count').innerText = totalCount;
+
+      const mobileBar = document.getElementById('mobile-cart-bar');
+      if (totalCount > 0) {
+        mobileBar.classList.add('active');
+        document.getElementById('mobile-cart-summary').innerText = totalCount + " items · ₹" + grandTotal;
+      } else {
+        mobileBar.classList.remove('active');
+      }
+
+      // Update drawer body
+      const cartBody = document.getElementById('cart-body');
+      if (totalCount === 0) {
+        cartBody.innerHTML = `
+          <div class="cart-empty">
+            <div class="icon">🍲</div>
+            <h4>Your cart is empty</h4>
+            <p>Add some delicious biryani, tiffins, or snacks from the menu!</p>
+          </div>
+        `;
+        document.getElementById('cart-footer').style.display = 'none';
+      } else {
+        document.getElementById('cart-footer').style.display = 'block';
+        cartBody.innerHTML = `
+          ${Object.values(cart).map(entry => `
+            <div class="cart-item-row">
+              <img 
+                src="${entry.item.image}" 
+                alt="${entry.item.name}" 
+                class="cart-item-thumb"
+                onerror="this.onerror=null; this.src='${entry.item.fallback}';"
+              >
+              <div class="cart-item-details">
+                <div class="cart-item-title">${entry.item.name}</div>
+                <div class="cart-item-price">₹${entry.item.price * entry.qty} (₹${entry.item.price} each)</div>
+              </div>
+              <div class="qty-stepper">
+                <button onclick="changeQty('${entry.item.id}', -1)">−</button>
+                <span class="qty-val">${entry.qty}</span>
+                <button class="btn-plus" onclick="changeQty('${entry.item.id}', 1)">+</button>
+              </div>
+            </div>
+          `).join('')}
+
+          <div class="cart-form-group">
+            <div class="cart-form-title">Delivery Details (Optional for WhatsApp)</div>
+            <input type="text" id="cust-name-input" class="form-input" placeholder="Your Name (e.g. Rahul Sharma)">
+            <input type="text" id="cust-address-input" class="form-input" placeholder="Delivery Address & Landmark">
+            <input type="text" id="cust-notes-input" class="form-input" placeholder="Special Note (e.g. Medium spicy, extra chutney)">
+          </div>
+        `;
+      }
+
+      // Update totals
+      document.getElementById('summary-subtotal').innerText = "₹" + subtotal;
+      document.getElementById('summary-packaging').innerText = packaging === 0 ? "₹0" : "₹" + packaging;
+      document.getElementById('summary-delivery').innerText = delivery === 0 ? "FREE" : "₹" + delivery;
+      document.getElementById('summary-grandtotal').innerText = "₹" + grandTotal;
+    }
+
+    /* ========================================================================
+       8. ORDER ON WHATSAPP ACTION
+       ======================================================================== */
+    function sendWhatsAppOrder() {
+      const items = Object.values(cart);
+      if (items.length === 0) {
+        alert("Please add dishes to your cart first!");
+        return;
+      }
+
+      const totalCount = items.reduce((sum, entry) => sum + entry.qty, 0);
+      const subtotal = items.reduce((sum, entry) => sum + (entry.item.price * entry.qty), 0);
+      const packaging = 20;
+      const delivery = subtotal > 499 ? 0 : 40;
+      const grandTotal = subtotal + packaging + delivery;
+
+      const custName = document.getElementById('cust-name-input') ? document.getElementById('cust-name-input').value.trim() : "";
+      const custAddress = document.getElementById('cust-address-input') ? document.getElementById('cust-address-input').value.trim() : "";
+      const custNotes = document.getElementById('cust-notes-input') ? document.getElementById('cust-notes-input').value.trim() : "";
+
+      let msg = "*NEW ORDER - " + BUSINESS_CONFIG.name.toUpperCase() + "*\n";
+      msg += "📍 City: " + BUSINESS_CONFIG.city + "\n";
+      if (custName) msg += "👤 Name: " + custName + "\n";
+      if (custAddress) msg += "🏠 Address: " + custAddress + "\n";
+      msg += "--------------------------------\n";
+      msg += "*ORDER ITEMS:*\n";
+
+      items.forEach((entry, i) => {
+        msg += (i + 1) + ". " + entry.item.name + " x " + entry.qty + " = ₹" + (entry.item.price * entry.qty) + "\n";
+      });
+
+      msg += "--------------------------------\n";
+      msg += "*Subtotal:* ₹" + subtotal + "\n";
+      msg += "*Packaging:* ₹" + packaging + "\n";
+      msg += "*Delivery:* " + (delivery === 0 ? "FREE" : "₹" + delivery) + "\n";
+      msg += "*GRAND TOTAL:* ₹" + grandTotal + "\n";
+
+      if (custNotes) {
+        msg += "--------------------------------\n";
+        msg += "📝 *Notes:* " + custNotes + "\n";
+      }
+
+      msg += "\nPlease confirm availability and payment options (UPI / Cash on Delivery). Thank you!";
+
+      const waUrl = "https://wa.me/" + BUSINESS_CONFIG.whatsappNumber + "?text=" + encodeURIComponent(msg);
+      window.open(waUrl, '_blank');
+    }
+
+    /* ========================================================================
+       9. TOAST NOTIFICATION HELPER
+       ======================================================================== */
+    function showToast(message) {
+      const toast = document.getElementById('toast-notification');
+      toast.innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    /* ========================================================================
+       10. EVENT LISTENERS & INITIALIZATION
+       ======================================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      initializePage();
+      updateCartUI();
+
+      // Category filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          selectedCategory = e.target.getAttribute('data-category');
+          renderMenu();
+        });
+      });
+
+      // Mobile hamburger toggle
+      const hamburger = document.getElementById('hamburger-toggle');
+      const mobileDrawer = document.getElementById('mobile-menu-drawer');
+      hamburger.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('open');
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileDrawer.classList.remove('open');
+        });
+      });
+
+      // Cart modal open / close
+      const cartOverlay = document.getElementById('cart-overlay');
+      const openCartBtn = document.getElementById('open-cart-btn');
+      const mobileCartOpenBtn = document.getElementById('mobile-cart-open-btn');
+      const cartCloseBtn = document.getElementById('cart-close-btn');
+
+      openCartBtn.addEventListener('click', () => cartOverlay.classList.add('open'));
+      mobileCartOpenBtn.addEventListener('click', () => cartOverlay.classList.add('open'));
+      cartCloseBtn.addEventListener('click', () => cartOverlay.classList.remove('open'));
+
+      cartOverlay.addEventListener('click', (e) => {
+        if (e.target === cartOverlay) {
+          cartOverlay.classList.remove('open');
+        }
+      });
+
+      // WhatsApp Checkout Button
+      document.getElementById('whatsapp-checkout-btn').addEventListener('click', sendWhatsAppOrder);
+    });
+  </script>
+</body>
+</html>
