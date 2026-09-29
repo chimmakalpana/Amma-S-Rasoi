@@ -25,6 +25,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- n8n Chat Widget CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet">
+
   <style>
     /* ==========================================================================
        1. CSS VARIABLES & RESET
@@ -55,6 +58,28 @@
       --shadow-md: 0 6px 18px rgba(41, 26, 19, 0.08);
       --shadow-lg: 0 14px 32px rgba(41, 26, 19, 0.12);
       --shadow-xl: 0 20px 40px rgba(41, 26, 19, 0.16);
+
+      /* n8n Chat Widget Theme Variables */
+      --chat--color-primary: #EA580C;
+      --chat--color-primary-shade-50: #C2410C;
+      --chat--color-primary-shade-100: #9A3412;
+      --chat--color-secondary: #291A13;
+      --chat--color-white: #FFFFFF;
+      --chat--color-light: #FAF7F2;
+      --chat--header--background: #24160E;
+      --chat--header--color: #FAF7F2;
+      --chat--toggle--background: #EA580C;
+      --chat--toggle--hover--background: #C2410C;
+      --chat--toggle--active--background: #9A3412;
+      --chat--toggle--color: #FFFFFF;
+      --chat--message--bot--background: #FFFFFF;
+      --chat--message--bot--color: #291A13;
+      --chat--message--user--background: #EA580C;
+      --chat--message--user--color: #FFFFFF;
+      --chat--window--border-radius: 20px;
+      --chat--window--z-index: 1000;
+      --chat--window--bottom: 24px;
+      --chat--window--right: 24px;
     }
 
     *, *::before, *::after {
@@ -258,6 +283,28 @@
       background: var(--whatsapp-green-hover);
       transform: translateY(-1px);
       box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35);
+    }
+
+    .chat-header-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--text-dark);
+      color: #FAF7F2;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid var(--border-warm-dark);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .chat-header-btn:hover {
+      background: var(--accent-orange);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
     }
 
     .hamburger-btn {
@@ -1501,8 +1548,12 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links, .whatsapp-header-btn {
+      .nav-links, .whatsapp-header-btn, .chat-header-btn {
         display: none;
+      }
+      .chat-window-wrapper {
+        bottom: 84px !important;
+        right: 16px !important;
       }
       .hamburger-btn {
         display: block;
@@ -1565,6 +1616,9 @@
         <button class="cart-btn" id="open-cart-btn" aria-label="View Shopping Cart">
           🛒 Cart <span class="cart-badge" id="nav-cart-count">0</span>
         </button>
+        <button class="chat-header-btn" id="open-n8n-chat-nav" onclick="openN8nChat()" aria-label="Open n8n AI Chatbot">
+          🤖 Chat Bot
+        </button>
         <a href="#contact" class="whatsapp-header-btn" id="header-whatsapp-link">
           💬 WhatsApp Us
         </a>
@@ -1581,6 +1635,7 @@
       <a href="#why-us" class="mobile-nav-link">Why Choose Us</a>
       <a href="#reviews" class="mobile-nav-link">Customer Reviews</a>
       <a href="#contact" class="mobile-nav-link">Contact & Opening Hours</a>
+      <a href="javascript:void(0)" onclick="openN8nChat(); document.getElementById('mobile-menu-drawer').classList.remove('open');" class="mobile-nav-link" style="color: var(--accent-orange); font-weight: 700;">🤖 Ask AI Chat Bot</a>
     </div>
   </header>
 
@@ -1844,11 +1899,14 @@
             </div>
           </div>
 
-          <!-- Direct WhatsApp Button -->
-          <div>
+          <!-- Direct WhatsApp Button & n8n Chatbot Button -->
+          <div style="display: flex; flex-direction: column; gap: 12px;">
             <a href="#" class="whatsapp-big-btn" id="direct-whatsapp-btn" target="_blank" rel="noopener noreferrer">
               💬 Order Direct on WhatsApp
             </a>
+            <button onclick="openN8nChat()" style="display: flex; align-items: center; justify-content: center; gap: 10px; background: #24160E; color: #FAF7F2; padding: 16px 24px; border-radius: var(--radius-lg); font-size: 15px; font-weight: 700; border: 1px solid var(--border-warm-dark); cursor: pointer; transition: all 0.2s ease;">
+              🤖 Chat with AI Assistant (n8n)
+            </button>
           </div>
         </div>
 
@@ -2478,6 +2536,54 @@
       // WhatsApp Checkout Button
       document.getElementById('whatsapp-checkout-btn').addEventListener('click', sendWhatsAppOrder);
     });
+
+    /* ========================================================================
+       11. n8n CHAT BOT HELPER
+       ======================================================================== */
+    function openN8nChat() {
+      // Trigger the official n8n floating widget window toggle
+      const toggle = document.querySelector('.chat-window-toggle');
+      if (toggle) {
+        toggle.click();
+      } else {
+        showToast("Opening Amma's Kitchen Assistant...");
+        setTimeout(() => {
+          const t = document.querySelector('.chat-window-toggle');
+          if (t) t.click();
+        }, 500);
+      }
+    }
+  </script>
+
+  <!-- ========================================================================
+       n8n CHAT BOT WIDGET INITIALIZATION
+       Webhook URL: https://chimmakalpana.app.n8n.cloud/webhook/5b57ed77-33be-4ddd-b3d8-8db202c60c2a/chat
+       ======================================================================== -->
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    try {
+      createChat({
+        webhookUrl: 'https://chimmakalpana.app.n8n.cloud/webhook/5b57ed77-33be-4ddd-b3d8-8db202c60c2a/chat',
+        showWelcomeScreen: false,
+        defaultLanguage: 'en',
+        initialMessages: [
+          'Namaste! Welcome to Amma\'s Rasoi 🙏',
+          'How can I help you today? Ask me about our menu, today\'s specials, party catering, or placing an order!'
+        ],
+        i18n: {
+          en: {
+            title: "Amma's Rasoi Assistant",
+            subtitle: "Powered by n8n · Live Kitchen AI",
+            footer: "",
+            getStarted: "Start Chat",
+            inputPlaceholder: "Ask about dishes, pricing, catering...",
+          },
+        },
+      });
+    } catch (err) {
+      console.warn("n8n chat initialization notice:", err);
+    }
   </script>
 </body>
 </html>
